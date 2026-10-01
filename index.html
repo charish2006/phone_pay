@@ -1,0 +1,741 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhonePe Demo Clone</title>
+<link rel="stylesheet" href="./index.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+<!--  HOME  -->
+
+<div id="homePage" class="page active">
+
+    <div class="header">
+
+        <div class="top">
+            <div class="logo">PhonePe</div>
+            <div class="profile">H</div>
+        </div>
+
+        <div class="search">
+            🔍 Search for services
+        </div>
+
+    </div>
+
+    <div class="balance">
+
+        <h4>Balance</h4>
+
+        <h2 id="homeBalance">₹5,250</h2>
+
+        <button onclick="addMoney()">
+            + Add Money
+        </button>
+
+    </div>
+
+
+    <!-- MONEY TRANSFER -->
+
+    <div class="section">
+
+        <div class="title">
+            Money Transfer
+        </div>
+
+        <div class="services">
+
+            <div class="service" onclick="showSendPage()">
+                <div class="service-icon">💸</div>
+                <p>Send Money</p>
+            </div>
+
+            <div class="service" onclick="showBalancePage()">
+                <div class="service-icon">🏦</div>
+                <p>Check Balance</p>
+            </div>
+
+            <div class="service" onclick="showHistoryPage()">
+                <div class="service-icon">📜</div>
+                <p>History</p>
+            </div>
+
+            <div class="service" onclick="showComingSoon()">
+                <div class="service-icon">📷</div>
+                <p>Scan & Pay</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RECHARGE -->
+
+    <div class="section">
+
+        <div class="title">
+            Recharge & Bills
+        </div>
+
+        <div class="services">
+
+            <div class="service" onclick="showRechargePage()">
+                <div class="service-icon">📱</div>
+                <p>Mobile</p>
+            </div>
+
+            <div class="service" onclick="showComingSoon()">
+                <div class="service-icon">💡</div>
+                <p>Electricity</p>
+            </div>
+
+            <div class="service" onclick="showComingSoon()">
+                <div class="service-icon">📺</div>
+                <p>DTH</p>
+            </div>
+
+            <div class="service" onclick="showComingSoon()">
+                <div class="service-icon">📄</div>
+                <p>Other Bills</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="banner">
+
+            <h3>🎁 Special Offer</h3>
+
+            <p>
+                Get exciting rewards on demo transactions.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- RECENT -->
+
+    <div class="section">
+
+        <div class="title">
+            Recent Transactions
+        </div>
+
+        <div id="recentTransactions"></div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= SEND MONEY PAGE ================= -->
+
+<div id="sendPage" class="page">
+
+    <div class="page-header">
+
+        <span class="back" onclick="showHome()">
+            ←
+        </span>
+
+        Send Money
+
+    </div>
+
+
+    <div class="form-card">
+
+        <h2>💸 Send Money</h2>
+
+        <input
+            id="sendMobile"
+            class="input"
+            type="tel"
+            maxlength="10"
+            placeholder="Enter mobile number">
+
+        <input
+            id="sendAmount"
+            class="input"
+            type="number"
+            placeholder="Enter amount">
+
+        <div id="sendError" class="error"></div>
+
+        <button
+            class="primary-btn"
+            onclick="sendContinue()">
+
+            Continue
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!--  SEND PIN PAGE  -->
+
+<div id="pinPage" class="page">
+
+    <div class="page-header">
+
+        <span class="back" onclick="showSendPage()">
+            ←
+        </span>
+
+        Payment
+
+    </div>
+
+
+    <div class="form-card">
+
+        <h2>🔐 Enter UPI PIN</h2>
+
+        <p style="color:#777;margin-bottom:18px">
+             PIN is <b>1234</b>
+        </p>
+
+        <input
+            id="sendPin"
+            class="input"
+            type="password"
+            maxlength="4"
+            placeholder="Enter 4 digit PIN">
+
+        <div id="pinError" class="error">
+            Incorrect PIN. Use 1234.
+        </div>
+
+        <button
+            class="primary-btn"
+            onclick="completePayment()">
+
+            Pay Now
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!--  PAYMENT SUCCESS  -->
+
+<div id="paymentSuccessPage" class="page">
+
+    <div class="page-header">
+        Payment
+    </div>
+
+    <div class="form-card">
+
+        <div class="success-box">
+
+            <div class="success-circle">
+                ✓
+            </div>
+
+            <h2>Payment Successful</h2>
+
+            <p id="paymentDetails"></p>
+
+            <br>
+
+            <button
+                class="primary-btn"
+                onclick="showHome()">
+
+                Done
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- RECHARGE PAGE  -->
+
+<div id="rechargePage" class="page">
+
+    <div class="page-header">
+
+        <span class="back" onclick="showHome()">
+            ←
+        </span>
+
+        Mobile Recharge
+
+    </div>
+
+
+    <div class="form-card">
+
+        <h2>📱 Mobile Recharge</h2>
+
+        <input
+            id="rechargeMobile"
+            class="input"
+            type="tel"
+            placeholder="Enter mobile number">
+
+
+        <select id="rechargeOperator">
+
+            <option value="">
+                Select Operator
+            </option>
+
+            <option value="Jio">
+                Jio
+            </option>
+
+            <option value="Airtel">
+                Airtel
+            </option>
+
+            <option value="Vi">
+                Vi
+            </option>
+
+            <option value="BSNL">
+                BSNL
+            </option>
+
+        </select>
+
+
+        <p style="font-weight:bold;margin:10px 0">
+            Select Plan
+        </p>
+
+
+        <div class="plans">
+
+            <div class="plan" onclick="selectPlan(199)">
+                <strong>₹199</strong>
+                <p>28 Days</p>
+                <small>1.5GB/day</small>
+            </div>
+
+            <div class="plan" onclick="selectPlan(299)">
+                <strong>₹299</strong>
+                <p>28 Days</p>
+                <small>2GB/day</small>
+            </div>
+
+            <div class="plan" onclick="selectPlan(399)">
+                <strong>₹399</strong>
+                <p>56 Days</p>
+                <small>2.5GB/day</small>
+            </div>
+
+            <div class="plan" onclick="selectPlan(599)">
+                <strong>₹599</strong>
+                <p>84 Days</p>
+                <small>2GB/day</small>
+            </div>
+
+        </div>
+
+
+        <input
+            id="selectedPlan"
+            class="input"
+            type="text"
+            placeholder="Selected plan"
+            readonly>
+
+
+        <div id="rechargeError" class="error"></div>
+
+
+        <button
+            class="primary-btn"
+            onclick="startRecharge()">
+
+            Recharge
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= RECHARGE SUCCESS ================= -->
+
+<div id="rechargeSuccessPage" class="page">
+
+    <div class="page-header">
+        Recharge
+    </div>
+
+    <div class="form-card">
+
+        <div class="success-box">
+
+            <div class="success-circle">
+                ✓
+            </div>
+
+            <h2>Recharge Successful</h2>
+
+            <p id="rechargeDetails"></p>
+
+            <br>
+
+            <button
+                class="primary-btn"
+                onclick="showHome()">
+
+                Done
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= CHECK BALANCE PAGE ================= -->
+
+<div id="balancePage" class="page">
+
+    <div class="page-header">
+
+        <span class="back" onclick="showHome()">
+            ←
+        </span>
+
+        Check Account Balance
+
+    </div>
+
+
+    <div class="form-card">
+
+        <h2>🏦 Bank Account</h2>
+
+        <p style="color:#777;margin-bottom:15px">
+            Select your bank account
+        </p>
+
+
+        <div
+            id="bank1"
+            class="bank-card"
+            onclick="selectBank('bank1')">
+
+            <div class="bank-name">
+                🏦 State Bank
+            </div>
+
+            <div class="account-number">
+                A/C •••• 4521
+            </div>
+
+        </div>
+
+
+        <div
+            id="bank2"
+            class="bank-card"
+            onclick="selectBank('bank2')">
+
+            <div class="bank-name">
+                🏦 HDFC Bank
+            </div>
+
+            <div class="account-number">
+                A/C •••• 7812
+            </div>
+
+        </div>
+
+
+        <!-- <div
+            id="bank3"
+            class="bank-card"
+            onclick="selectBank('bank3')">
+
+            <div class="bank-name">
+                🏦 ICICI Bank
+            </div>
+
+            <div class="account-number">
+                A/C •••• 9634
+            </div>
+
+        </div> -->
+
+
+        <input
+            id="balancePin"
+            class="input"
+            type="password"
+            maxlength="4"
+            placeholder="Enter UPI PIN">
+
+
+        <div id="balanceError" class="error">
+            Select bank and enter correct PIN.
+        </div>
+
+
+        <button
+            class="primary-btn"
+            onclick="checkBalance()">
+
+            Check Balance
+
+        </button>
+
+
+        <div id="accountResult" class="account-result">
+
+            <div class="detail">
+
+                <p>
+                    <b>Bank:</b>
+                    <span id="resultBank"></span>
+                </p>
+
+                <p>
+                    <b>Account:</b>
+                    <span id="resultAccount"></span>
+                </p>
+
+            </div>
+
+
+            <p>Available Balance</p>
+
+            <div id="accountBalance" class="big-balance"> </div>
+
+
+            <button
+                class="secondary-btn"
+                onclick="showHome()">
+
+                Back to Home
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!--  HISTORY PAGE  -->
+
+<div id="historyPage" class="page">
+
+    <div class="page-header">
+
+        <span class="back" onclick="showHome()">
+            ←
+        </span>
+
+        Transaction History
+
+    </div>
+
+
+    <div class="section">
+
+        <div id="allTransactions"></div>
+
+    </div>
+
+</div>
+
+
+<!--  PROFILE  -->
+
+<div id="profilePage" class="page">
+
+    <div class="page-header">
+        Profile
+    </div>
+
+
+    <div class="form-card">
+
+        <div style="text-align:center">
+
+            <div class="profile"
+                 style="margin:auto;background:#5f259f;color:white;width:70px;height:70px;font-size:25px">
+
+                H
+
+            </div>
+
+            <h2 style="margin-top:15px">
+                Harish
+            </h2>
+
+            <p style="color:#777">
+               6383187374
+            </p>
+
+        </div>
+
+
+        <br>
+
+
+        <div class="transaction">
+
+            <div class="transaction-icon">
+                👤
+            </div>
+
+            <div class="transaction-info">
+
+                <h4>
+                    Personal Details
+                </h4>
+
+                <p>
+                    <!-- Demo profile -->
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="transaction">
+
+            <div class="transaction-icon">
+                🔒
+            </div>
+
+            <div class="transaction-info">
+
+                <h4>
+                    Security
+                </h4>
+
+                <p>
+                    PIN & security
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="transaction">
+
+            <div class="transaction-icon">
+                ⚙️
+            </div>
+
+            <div class="transaction-info">
+
+                <h4>
+                    Settings
+                </h4>
+
+                <p>
+                    App settings
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- BOTTOM footer -->
+
+<div class="bottom-nav">
+
+    <div
+        class="nav-item active"
+        onclick="showHome()">
+
+        <div class="nav-icon">
+            🏠
+        </div>
+
+        Home
+
+    </div>
+
+
+    <div
+        class="nav-item"
+        onclick="showRechargePage()">
+
+        <div class="nav-icon">
+            📱
+        </div>
+
+        Recharge
+
+    </div>
+
+
+    <div
+        class="nav-item"
+        onclick="showHistoryPage()">
+
+        <div class="nav-icon">
+            📜
+        </div>
+
+        History
+
+    </div>
+
+
+    <div
+        class="nav-item"
+        onclick="showProfile()">
+
+        <div class="nav-icon">👤</div>
+
+        Profile
+
+    </div>
+
+</div>
+
+</div>
+
+
+<script src="./index.js"></script>
+
+</body>
+</html>
+```
